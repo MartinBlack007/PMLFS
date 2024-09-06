@@ -7,7 +7,7 @@ from sklearn.metrics import pairwise_distances
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin_min
 
-# ||X(W+S)-L||_F^2 + alpha* ||XW- (L*T)||_F^2 + beta*||W||2,1 + gamma* ||S||_1
+# ||X(W+S)-L||_F^2 + alpha* ||XW- (L*T)||_F^2 + beta*||W||2,1 + gamma* ||S||_1^2
 
 eps=np.finfo(np.float64).eps
 
