@@ -1,3 +1,8 @@
+'''
+@Description: code for LCFS-PML,
+@Author: Qingqi Han,
+@Date: 2024.09.06,
+'''
 import numpy as np
 import time
 from numpy.linalg import norm
