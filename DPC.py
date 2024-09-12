@@ -1,18 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 计算数据点两两之间的距离
-def getDistanceMatrix(datas):
-    N,D = np.shape(datas)
-    dists = np.zeros([N,N])
-    
-    for i in range(N):
-        for j in range(N):
-            vi = datas[i,:]
-            vj = datas[j,:]
-            dists[i,j]= np.sqrt(np.dot((vi-vj),(vi-vj)))
-    return dists
-
 # 找到密度计算的阈值dc
 # 要求平均每个点周围距离小于dc的点的数目占总点数的1%-2%
 def select_dc(dists):    
