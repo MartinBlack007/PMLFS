@@ -11,7 +11,7 @@ from scipy.spatial.distance import pdist, squareform
 from sklearn.metrics import pairwise_distances
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin_min
-
+from DPC import select_dc,get_density,get_deltas,find_centers_auto,find_centers_K,cluster_PD
 # ||X(W+S)-L||_F^2 + alpha* ||XW- (L*T)||_F^2 + beta*||W||2,1 + gamma* ||S||_1^2
 
 eps=np.finfo(np.float64).eps
@@ -148,10 +148,13 @@ def clustercenter_distances(X, L, n_clusters):
 
         X_pos = X[positive_indices, :]
 
-        kmeans = KMeans(n_clusters=min(n_clusters, len(X_pos)), random_state=0)
-        kmeans.fit(X_pos)
+        dists = squareform(pdist(X_pos, 'euclidean'))
+        dc = select_dc(dists)
+        rho = get_density(dists,dc,method="Gaussion")
+        deltas, nearest_neiber= get_deltas(dists,rho)  
+        centers = find_centers_auto(rho,deltas)
 
-        _, distances = pairwise_distances_argmin_min(X_pos, kmeans.cluster_centers_)
+        _, distances = pairwise_distances_argmin_min(X_pos, X_pos[centers,:])
 
         if len(distances) > 0:
             max_distance = np.max(distances)
